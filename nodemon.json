@@ -1,0 +1,22 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**", "client/*", "dist", ".cache", "logs", "*.json"],
+  "verbose": true,
+  "execMap": {
+    "": "node",
+    "js": "node --harmony",
+    "ts": "ts-node "
+  },
+  "events": {
+    "start": "",
+    "crash": "",
+    "exit": "",
+    "restart": ""
+  },
+  "ext": "js json ts tsx",
+  "watch": ["./**"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "legacy-watch": false
+}
