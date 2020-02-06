@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "cross-env NODE_ENV=development nodemon server/app.ts"
+    "serve": "cross-env NODE_ENV=development nodemon server/app.ts",
+    "lint": "eslint --cache --ext .js,.ts, --format=pretty ./server ./router"
   },
   "repository": {
     "type": "git",
@@ -20,11 +21,14 @@
   "homepage": "https://github.com/linbudu599/Mini-Program-BUDU-BE#readme",
   "dependencies": {
     "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
+    "@babel/core": "^7.8.4",
     "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
     "@babel/runtime": "^7.8.3",
     "@babel/types": "^7.8.3",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/babel__core": "^7.1.3",
     "@types/babel__generator": "^7.6.1",
     "@types/chalk": "^2.2.0",
@@ -34,17 +38,22 @@
     "@types/koa-static": "^4.0.1",
     "@types/node": "^13.7.0",
     "@types/sequelize": "^4.28.8",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
     "chalk": "^3.0.0",
+    "core-js": "^3.6.4",
     "corejs": "^1.0.0",
     "cross-env": "^7.0.0",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-formatter-pretty": "^3.0.1",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-react": "^7.18.0",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "husky": "^4.2.1",
     "koa-bodyparser": "^4.2.1",
     "koa-static": "^5.0.0",
+    "lint-staged": "^10.0.7",
     "mysql2": "^2.1.0",
     "prettier": "^1.19.1",
-    "sequelize": "^5.21.3"
+    "sequelize": "^5.21.3",
+    "typescript": "^3.7.5"
   }
 }
