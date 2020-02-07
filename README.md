@@ -5,7 +5,15 @@
 ## 基于
 
 - Typescript
-- Sequelize + MySQL2 驱动
+- Sequelize + MySQL2 驱动 
 - Koa
 
 ## 开发中
+
+- 在 router 中做 api 版本转发？还是干脆就不要 router？
+
+- 先把逻辑写在 `/api`目录 下，完事了再考虑重构吧
+
+- 自己实现一个简易的 import 版本的`require-directory`，学习写法，抽离到单独文件中，用 `process.cwd()` blabla...
+
+- 实现简易版的 `LinValidator`?
