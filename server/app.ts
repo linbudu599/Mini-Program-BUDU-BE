@@ -1,32 +1,29 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import chalk from 'chalk';
-
 import logger from 'koa-logger';
 
-// import { handler } from '../middleware/error';
-import CrossOrigin from '../middleware/cross-origin';
-import { catchError } from '../middleware/exception';
+import CrossOrigin from '../app/middleware/cross-origin';
+import { catchError } from '../app/middleware/exception';
 
-import route from '../router';
+import route from '../app/router';
+import { classic } from '../app/api/v1/classic';
 
-import { classic } from '../api/v1/classic';
+import config from '../config/config';
 
 const PORT = process.env.PORT || 8888;
-
 const app = new Koa();
 const router = new Router();
 
 app.use(catchError);
-
 app.use(logger());
-
 app.use(CrossOrigin);
-// app.use(handler);
 
 router.get('/', async ctx => {
   ctx.body = 'Budu';
 });
+
+(global as any).config = config;
 
 route(app);
 classic(app);

@@ -1,10 +1,15 @@
 import { Context, Next } from 'koa';
-import { HttpException } from '../util/types';
+import { HttpException } from '../../util/types';
+
+const dev: boolean = process.env.NODE_ENV === 'development';
 
 export const catchError = async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (error) {
+    if (!dev) {
+      throw error;
+    }
     const { errorCode, status, message }: HttpException = error;
     if (error instanceof HttpException) {
       ctx.status = status;
