@@ -7,11 +7,12 @@ export const catchError = async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (error) {
-    if (!dev) {
+    const isHttpException = error instanceof HttpException;
+    if (!dev && !isHttpException) {
       throw error;
     }
     const { errorCode, status, message }: HttpException = error;
-    if (error instanceof HttpException) {
+    if (isHttpException) {
       ctx.status = status;
       ctx.body = {
         errorCode,

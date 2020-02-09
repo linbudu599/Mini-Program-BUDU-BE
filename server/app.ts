@@ -8,12 +8,16 @@ import { catchError } from '../app/middleware/exception';
 
 import route from '../app/router';
 import { classic } from '../app/api/v1/classic';
+import { user } from '../app/api/v1/user';
+import { token } from '../app/api/v1/token';
 
 import config from '../config/config';
 
 const PORT = process.env.PORT || 8888;
 const app = new Koa();
 const router = new Router();
+
+// TODO: extract middleware config along
 
 app.use(catchError);
 app.use(logger());
@@ -25,8 +29,12 @@ router.get('/', async ctx => {
 
 (global as any).config = config;
 
+// TODO: extract router config along
+
 route(app);
 classic(app);
+user(app);
+token(app);
 
 app.use(router.routes()).use(router.allowedMethods());
 

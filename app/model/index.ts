@@ -6,7 +6,7 @@ const dbUrl = process.env.NODE_ENV === 'development' ? DEV_DB : PROD_DB;
 // 在这里定义的配置会适用于所有使用该实例创建的表
 // 如果需要针对表进行个性化配置，需要在.define中使用
 const sequelize = new Sequelize(dbUrl, {
-  dialect: 'mssql',
+  dialect: 'mysql',
   timezone: '+08:00',
   logging: true,
   define: {

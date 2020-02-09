@@ -19,3 +19,12 @@ export class ParamException extends HttpException {
     this.errorCode = errorCode;
   }
 }
+
+export class Success extends HttpException {
+  constructor(message: string, errorCode: number = 0) {
+    super(message, errorCode);
+    this.message = message || 'OK!';
+    this.status = 201;
+    this.errorCode = 0;
+  }
+}

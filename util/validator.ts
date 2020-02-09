@@ -4,6 +4,8 @@ import { ParamException } from './types';
 import { get, last, set, cloneDeep } from 'lodash';
 import { findMembers } from '.';
 
+// FIXME: refractor by generics
+
 export class Validator {
   [prop: string]: any;
   constructor() {
@@ -50,7 +52,7 @@ export class Validator {
     return false;
   }
 
-  public validate(ctx: Context, alias = {}) {
+  public async validate(ctx: Context, alias = {}) {
     this.alias = alias;
     let params = this.assembleAllParams(ctx);
 
@@ -63,7 +65,7 @@ export class Validator {
 
     const errorMsgs = [];
     for (let key of memberKeys) {
-      const result = this.check(key, alias);
+      const result = await this.check(key, alias);
       if (!result.success) {
         errorMsgs.push(result.msg);
       }
@@ -75,12 +77,12 @@ export class Validator {
     return this;
   }
 
-  private check(key: string, alias = {}) {
+  private async check(key: string, alias = {}) {
     const isCustomFunc = typeof this[key] == 'function' ? true : false;
     let result;
     if (isCustomFunc) {
       try {
-        this[key](this.data);
+        await this[key](this.data);
         result = new RuleResult(true);
       } catch (error) {
         result = new RuleResult(false, error.msg || error.message || '参数错误');
@@ -99,7 +101,7 @@ export class Validator {
 
       if (result.pass) {
         // 如果参数路径不存在，往往是因为用户传了空值，而又设置了默认值
-        if (param.path.length == 0) {
+        if (param.path.length === 0) {
           set(this.parsed, ['default', key], result.legalValue);
         } else {
           set(this.parsed, param.path, result.legalValue);
@@ -109,7 +111,7 @@ export class Validator {
     if (!result.pass) {
       const msg = `${isCustomFunc ? '' : key}${result.msg}`;
       return {
-        msg: msg,
+        msg,
         success: false,
       };
     }
@@ -168,7 +170,7 @@ class RuleResult {
 
 class RuleFieldResult extends RuleResult {
   [x: string]: null;
-  constructor(pass: boolean, msg = '', legalValue = null) {
+  constructor(pass: boolean, msg: string = '', legalValue = null) {
     super(pass, msg);
     this.legalValue = legalValue;
   }
@@ -176,7 +178,7 @@ class RuleFieldResult extends RuleResult {
 
 export class Rule {
   [x: string]: any;
-  constructor(name: string, msg: string, ...params: any) {
+  constructor(name: string, msg?: string, ...params: any) {
     Object.assign(this, {
       name,
       msg,
