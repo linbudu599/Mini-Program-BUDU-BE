@@ -28,3 +28,30 @@ export class Success extends HttpException {
     this.errorCode = 0;
   }
 }
+
+export class NotFound extends HttpException {
+  constructor(message: string, errorCode: number = 0) {
+    super(message, errorCode);
+    this.message = message || '资源未找到...';
+    this.status = 404;
+    this.errorCode = errorCode || 10000;
+  }
+}
+
+export class AuthorizationFailure extends HttpException {
+  constructor(message: string, errorCode: number = 0) {
+    super(message, errorCode);
+    this.message = message || '信息错误，请检查用户名/密码';
+    this.status = 401;
+    this.errorCode = errorCode || 10004;
+  }
+}
+
+export class Forbidden extends HttpException {
+  constructor(message: string, errorCode: number = 0) {
+    super(message, errorCode);
+    this.message = message || '禁止访问';
+    this.status = 403;
+    this.errorCode = errorCode || 10003;
+  }
+}

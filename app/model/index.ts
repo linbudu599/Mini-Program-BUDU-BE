@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model, BuildOptions } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import config from '../../config/config';
 const { DEV_DB, PROD_DB } = config;
 const dbUrl = process.env.NODE_ENV === 'development' ? DEV_DB : PROD_DB;

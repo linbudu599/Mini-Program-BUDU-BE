@@ -13,7 +13,7 @@ import { token } from '../app/api/v1/token';
 
 import config from '../config/config';
 
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 8760;
 const app = new Koa();
 const router = new Router();
 

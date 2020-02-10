@@ -5,8 +5,14 @@
 ## 基于
 
 - Typescript
-- Sequelize + MySQL2 驱动 
+- Sequelize + MySQL2 驱动
 - Koa
+
+## Bug
+
+- [x] Sequelize 报错 `Cannot read property 'hooks' of undefined`，关闭 `User.sync({force: true})`
+
+- [x] `Class constructor Model cannot be invoked without 'new'`，在`tsconfig.json`中将编译目标设置为`es6`
 
 ## 开发中
 

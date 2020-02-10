@@ -3,8 +3,8 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 
 import { successHandler } from '../../helper';
-
 import { RegisterValidator } from '../../validator';
+
 import User from '../../model/User';
 
 const router = new Router({
