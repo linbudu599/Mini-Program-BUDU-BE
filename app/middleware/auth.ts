@@ -4,40 +4,51 @@ import jwt from 'jsonwebtoken';
 import config from '../../config/config';
 import { Context, Next } from 'koa';
 
-let generalErrMsg = 'Token Uuanthorized';
-
-interface decode {
+interface IDecode {
   uid: string;
   scope: string;
 }
 
-class Auth {
-  constructor() {}
+export class Auth {
+  static COMMON: number;
+  static ADMIN: number;
+  [X: string]: any;
+  constructor(level?: number) {
+    this.level = level || 1;
+    this.COMMON = 8;
+    this.ADMIN = 16;
+  }
 
+  // !get
   get m() {
     return async (ctx: Context, next: Next) => {
       let decode;
+      let errMsg = 'Token Uuanthorized';
 
       const userToken = basicAuth(ctx.req);
-      console.log(userToken);
       // await next();
       if (!userToken || !userToken.name) {
         throw new Forbidden('禁止访问嗷', 10003);
       }
       try {
-        decode = jwt.verify(userToken.name, config.security.secretKey) as decode;
+        decode = jwt.verify(userToken.name, config.security.secretKey) as IDecode;
       } catch (error) {
-        // 合法/过期
+        // 不合法/过期
         if (error.name === 'TokenExpiredError') {
-          generalErrMsg = 'Token Expired';
+          errMsg = 'Token Expired';
         }
-        throw new Forbidden(generalErrMsg);
+        throw new Forbidden(errMsg);
       }
+
+      if (decode.scope < this.level) {
+        throw new Forbidden('权限不足');
+      }
+
       ctx.auth = {
         uid: decode.uid,
         scope: decode.scope,
       };
-      ctx.body = userToken;
+      await next();
     };
   }
 }

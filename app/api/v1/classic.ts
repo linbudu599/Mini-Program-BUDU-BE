@@ -14,9 +14,9 @@ router.use(bodyParser());
 export const classic = (server: Koa<DefaultState, DefaultContext>) => {
   server.use(async (ctx, next) => {
     // TODO: Extract Router And API
-    router.get('/latest', new Auth().m, async (ctx: Context) => {
-      ctx.body = 'V1 classsic';
-      throw new Error('A');
+    router.get('/latest', new Auth(7).m, async (ctx: Context) => {
+      ctx.body = ctx.auth;
+      // throw new Error('A');
     });
 
     router.post('/v1/:id/classic', async (ctx: Context) => {

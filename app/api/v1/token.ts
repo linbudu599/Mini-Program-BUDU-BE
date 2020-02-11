@@ -4,6 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import generateToken from '../../../util/jwt';
 import { TokenValidator, LoginType } from '../../validator';
 import { ParamException } from '../../../util/types';
+import { Auth } from '../../middleware/auth';
 import User from '../../model/User';
 
 const router = new Router({
@@ -28,6 +29,8 @@ export const token = (server: Koa<DefaultState, DefaultContext>) => {
           break;
         case LoginType.MOBILE:
           break;
+        case LoginType.ADMIN:
+          break;
         default:
           throw new ParamException('请查看type是否正确~', 9090);
       }
@@ -42,6 +45,8 @@ export const token = (server: Koa<DefaultState, DefaultContext>) => {
 };
 
 async function loginByEmail(account: string, secret: string) {
+  console.log(account, secret);
   const res = await User.validateEmail(account, secret);
-  return generateToken(res.id, 2);
+  // 普通用户登陆，权限8
+  return generateToken(res.id, Auth.COMMON);
 }
