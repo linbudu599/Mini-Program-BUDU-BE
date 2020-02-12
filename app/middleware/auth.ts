@@ -12,10 +12,12 @@ interface IDecode {
 export class Auth {
   static COMMON: number;
   static ADMIN: number;
+  static MINI_PROGRAM: number;
   [X: string]: any;
   constructor(level?: number) {
     this.level = level || 1;
     this.COMMON = 8;
+    this.MINI_PROGRAM = 8;
     this.ADMIN = 16;
   }
 

@@ -4,3 +4,8 @@
 store
 
 test.ts
+
+secret.config.ts
+
+/test/mock_program/miniprogram_npm
+/test/mock_program/node_modules

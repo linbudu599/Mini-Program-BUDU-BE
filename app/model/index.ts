@@ -8,7 +8,8 @@ const dbUrl = process.env.NODE_ENV === 'development' ? DEV_DB : PROD_DB;
 const sequelize = new Sequelize(dbUrl, {
   dialect: 'mysql',
   timezone: '+08:00',
-  logging: true,
+  logging: console.log,
+  // logging-options:
   define: {
     timestamps: true,
     paranoid: true,

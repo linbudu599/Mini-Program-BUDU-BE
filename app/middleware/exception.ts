@@ -7,6 +7,7 @@ export const catchError = async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (error) {
+    console.log(error);
     const isHttpException = error instanceof HttpException;
     if (!dev && !isHttpException) {
       throw error;

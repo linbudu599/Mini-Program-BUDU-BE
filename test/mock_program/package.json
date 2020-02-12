@@ -1,0 +1,14 @@
+{
+  "name": "mock_program",
+  "version": "0.0.1",
+  "description": "Mock Mini Program For Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "linbudu",
+  "license": "MIT",
+  "dependencies": {
+    "lin-ui": "^0.7.2"
+  }
+}

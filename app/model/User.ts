@@ -16,7 +16,7 @@ class User extends Model {
   public createdAt!: Date;
   public updatedAt!: Date;
 
-  public static async validateEmail(email: string, pwd: string) {
+  public static async validateEmail(email: string, pwd: string): Promise<User> | never {
     const user = await User.findOne({
       where: { email },
     });
@@ -24,11 +24,30 @@ class User extends Model {
       throw new AuthorizationFailure('用户不存在！', 10000);
     }
 
-    const correct = bcrypt.compareSync(pwd, user.password);
+    const correct: boolean = bcrypt.compareSync(pwd, user.password);
     if (!correct) {
       throw new AuthorizationFailure('密码不正确嗷', 10004);
     }
 
+    return user;
+  }
+
+  public static async findByOpenID(openid: string): Promise<null | User> {
+    const user = await User.findOne({
+      where: { openid },
+    });
+    return user; 
+  }
+
+  public static async registerByOpenID(openid: string): Promise<User> {
+    const user = await User.create(
+      {
+        openid,
+      },
+      {
+        benchmark: true,
+      },
+    );
     return user;
   }
 }
@@ -47,16 +66,16 @@ User.init(
     },
     nickName: {
       type: new DataTypes.STRING(),
-      allowNull: false,
+      // allowNull: false,
     },
     email: {
       type: new DataTypes.STRING(128),
       unique: true,
-      allowNull: false,
+      // allowNull: false,
     },
     password: {
       type: new DataTypes.STRING(),
-      allowNull: false,
+      // allowNull: false,
       set: function(val: string) {
         const salt = bcrypt.genSaltSync(10);
         const safePwd = bcrypt.hashSync(val, salt);
