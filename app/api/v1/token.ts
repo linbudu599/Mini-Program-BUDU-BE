@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import axios from 'axios';
 import generateToken from '../../../util/jwt';
-import { TokenValidator, LoginType } from '../../validator';
+import { TokenValidator, LoginType, EmptyValidator } from '../../validator';
 import { ParamException } from '../../../util/types';
 import { Auth } from '../../middleware/auth';
 import WXManager from '../../service/wx';
@@ -40,18 +40,20 @@ export const token = (server: Koa<DefaultState, DefaultContext>) => {
       ctx.body = { token };
     });
 
+    router.post('/verify', async (ctx: Context) => {
+      const v = new EmptyValidator().validate(ctx);
+      const result = Auth.verifyToken((await v).get('body.token'));
+      ctx.body = { result };
+    });
+
     server.use(router.routes()).use(router.allowedMethods());
 
     await next();
   });
 };
 
-async function loginByEmail(account: string, secret: string) {
+async function loginByEmail(account: string, secret: string): Promise<string> {
   const res = await User.validateEmail(account, secret);
   // 普通用户登陆，权限8
   return generateToken(res.id, Auth.COMMON);
-}
-
-async function loginByMiniProgramCode(code: string): Promise<void> {
-  console.log(code);
 }

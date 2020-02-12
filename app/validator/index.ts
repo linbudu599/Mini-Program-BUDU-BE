@@ -84,3 +84,10 @@ export class TokenValidator extends Validator {
     }
   }
 }
+
+export class EmptyValidator extends Validator {
+  constructor() {
+    super();
+    this.token = [new Rule('isLength', '不可为空', { min: 1 })];
+  }
+}

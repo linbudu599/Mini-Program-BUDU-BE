@@ -1,1 +1,2 @@
-<l-button size="long" bind:lintap="onGetToken">获取Token</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onGetToken">获取Token</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onVerifyToken">验证Token</l-button>

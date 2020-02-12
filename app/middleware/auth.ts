@@ -53,6 +53,16 @@ export class Auth {
       await next();
     };
   }
+
+  static verifyToken(token:string) {
+    console.log(token);
+    try {
+      jwt.verify(token, config.security.secretKey);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 export default Auth;
