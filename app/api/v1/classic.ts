@@ -3,6 +3,8 @@ import bodyParser from 'koa-bodyparser';
 import { PIntegerValidator } from '../../validator';
 import Koa, { DefaultState, DefaultContext, Next, Context } from 'koa';
 import Auth from '../../middleware/auth';
+import Flow from '../../model/Flow';
+import ArtSearcher from '../../model/Art';
 import { ParamException } from '../../../util/types';
 
 const router = new Router({
@@ -14,9 +16,20 @@ router.use(bodyParser());
 export const classic = (server: Koa<DefaultState, DefaultContext>) => {
   server.use(async (ctx, next) => {
     // TODO: Extract Router And API
-    router.get('/latest', new Auth(7).m, async (ctx: Context) => {
-      ctx.body = ctx.auth;
-      // throw new Error('A');
+    router.get('/latest', new Auth().m, async (ctx: Context) => {
+      // 先排序 再取最后一条
+
+      // const flow = await User.findAll({});
+
+      const flow = (await Flow.findOne({
+        order: [['index', 'DESC']],
+      })) as Flow;
+
+      const detail = await ArtSearcher.getData(flow.art_id, flow.type);
+      // FIXME: ？？
+      // @ts-ignore
+      detail.setDataValue('index', flow.index);
+      ctx.body = detail;
     });
 
     router.post('/v1/:id/classic', async (ctx: Context) => {

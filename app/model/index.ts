@@ -12,12 +12,12 @@ const sequelize = new Sequelize(dbUrl, {
   // logging-options:
   define: {
     timestamps: true,
-    paranoid: true,
+    // paranoid: true,
     freezeTableName: false,
     createdAt: true,
     updatedAt: 'updateTimestamp',
     deletedAt: 'destroyTime',
-    charset: 'utf8',
+    // charset: 'utf8',
   },
 });
 

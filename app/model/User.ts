@@ -36,7 +36,7 @@ class User extends Model {
     const user = await User.findOne({
       where: { openid },
     });
-    return user; 
+    return user;
   }
 
   public static async registerByOpenID(openid: string): Promise<User> {

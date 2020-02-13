@@ -1,4 +1,7 @@
+import { Base64 } from "js-base64"
+
 const app = getApp()
+
 
 Page({
   onGetToken() {
@@ -36,5 +39,24 @@ Page({
         console.log(res.data)
       }
     })
+  },
+
+  onGetLatest() {
+    wx.request({
+      header: {
+        Authorization: this.encode()
+      },
+      url: 'http://localhost:8760/v1/classic/latest',
+      success: (res) => {
+        console.log(res.data)
+      }
+    })
+  },
+
+  encode() {
+    const token = wx.getStorageSync('token');
+    const encoded = Base64.encode(token + ":")
+    return 'Basic ' + encoded
   }
+
 })
