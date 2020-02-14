@@ -52,6 +52,15 @@ export class RegisterValidator extends Validator {
   }
 }
 
+function checkType({ body: { type } }: Context) {
+  if (!type) {
+    throw new Error('type must be specified');
+  }
+  if (!(type in LoginType)) {
+    throw new Error('illegal type argus');
+  }
+}
+
 export enum LoginType {
   MINI_PROGRAM = 100,
   EMAIL,
@@ -89,5 +98,12 @@ export class EmptyValidator extends Validator {
   constructor() {
     super();
     this.token = [new Rule('isLength', '不可为空', { min: 1 })];
+  }
+}
+
+export class LikeValidator extends PIntegerValidator {
+  constructor() {
+    super();
+    this.validateType = checkType;
   }
 }

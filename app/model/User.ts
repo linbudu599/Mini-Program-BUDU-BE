@@ -9,12 +9,12 @@ import sequelize from './index';
 class User extends Model {
   id!: number;
   openid!: number;
-  nickName!: number;
+  nickname!: number;
   email!: number;
   password!: string;
 
-  public createdAt!: Date;
-  public updatedAt!: Date;
+  // public createdAt!: Date;
+  // public updatedAt!: Date;
 
   public static async validateEmail(email: string, pwd: string): Promise<User> | never {
     const user = await User.findOne({
@@ -64,7 +64,7 @@ User.init(
       autoIncrement: true,
       comment: '自增id',
     },
-    nickName: {
+    nickname: {
       type: new DataTypes.STRING(),
       // allowNull: false,
     },

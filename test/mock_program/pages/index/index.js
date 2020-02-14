@@ -53,6 +53,23 @@ Page({
     })
   },
 
+  onLike() {
+    wx.request({
+      header: {
+        Authorization: this.encode()
+      },
+      url: 'http://localhost:8760/v1/like',
+      method: "POST",
+      data: {
+        art_id: 1,
+        type: 100
+      },
+      success: (res) => {
+        console.log(res.data)
+      }
+    })
+  },
+
   encode() {
     const token = wx.getStorageSync('token');
     const encoded = Base64.encode(token + ":")

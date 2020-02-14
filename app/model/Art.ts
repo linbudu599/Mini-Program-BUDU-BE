@@ -21,10 +21,6 @@ class Art {
         res = await Sentence.findOne(condition);
         break;
 
-      case 400:
-        res = await Movie.findOne(condition);
-        break;
-
       default:
         break;
     }

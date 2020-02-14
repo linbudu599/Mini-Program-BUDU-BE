@@ -26,7 +26,6 @@ export const classic = (server: Koa<DefaultState, DefaultContext>) => {
       })) as Flow;
 
       const detail = await ArtSearcher.getData(flow.art_id, flow.type);
-      // FIXME: ？？
       // @ts-ignore
       detail.setDataValue('index', flow.index);
       ctx.body = detail;

@@ -43,7 +43,7 @@ export const token = (server: Koa<DefaultState, DefaultContext>) => {
     router.post('/verify', async (ctx: Context) => {
       const v = new EmptyValidator().validate(ctx);
       const result = Auth.verifyToken((await v).get('body.token'));
-      ctx.body = { result };
+      ctx.body = { is_valid: result };
     });
 
     server.use(router.routes()).use(router.allowedMethods());

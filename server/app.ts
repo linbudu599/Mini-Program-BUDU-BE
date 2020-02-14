@@ -10,6 +10,7 @@ import route from '../app/router';
 import { classic } from '../app/api/v1/classic';
 import { user } from '../app/api/v1/user';
 import { token } from '../app/api/v1/token';
+import { favor } from '../app/api/v1/like';
 
 import config from '../config/config';
 
@@ -41,6 +42,7 @@ route(app);
 classic(app);
 user(app);
 token(app);
+favor(app);
 
 app.use(router.routes()).use(router.allowedMethods());
 

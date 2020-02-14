@@ -23,7 +23,7 @@ export const user = (server: Koa<DefaultState, DefaultContext>) => {
       const user = {
         email: v.get('body.email'),
         password: v.get('body.confirmPwd'),
-        nickName: v.get('body.nickName'),
+        nickname: v.get('body.nickname'),
       };
       await User.create(user);
       // TODO: Use A Normal Handler!!

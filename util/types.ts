@@ -55,3 +55,20 @@ export class Forbidden extends HttpException {
     this.errorCode = errorCode || 10003;
   }
 }
+
+export class LikeError extends HttpException {
+  constructor(message: string, errorCode: number) {
+    super(message, errorCode);
+    this.status = 400;
+    this.message = '已经点过赞啦';
+    this.errorCode = 60001;
+  }
+}
+export class DislikeError extends HttpException {
+  constructor(message: string, errorCode: number) {
+    super(message, errorCode);
+    this.status = 400;
+    this.message = '已经取消过赞啦';
+    this.errorCode = 60002;
+  }
+}
