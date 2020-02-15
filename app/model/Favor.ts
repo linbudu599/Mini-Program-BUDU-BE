@@ -26,12 +26,42 @@ export class Favor extends Model {
         },
         { transaction: t },
       );
-      const res = await ArtSearcher.getData(art_id, type);
+      const res = await ArtSearcher.getData(art_id, type, false);
       // @ts-ignore
       await res.increment('fav_nums', { by: 1, transaction: t });
     });
   }
-  static async disLike(art_id: number, type: number, uid: number): Promise<any> {}
+
+  static async disLike(art_id: number, type: number, uid: number): Promise<any> {
+    const record = await Favor.findOne({
+      where: { art_id, type, uid },
+    });
+
+    if (!record) {
+      throw new DislikeError('已经取消过赞啦', 60002);
+    }
+
+    return sequelize.transaction(async (t: any) => {
+      await record.destroy({
+        force: false,
+        transaction: t,
+      });
+      const res = await ArtSearcher.getData(art_id, type, false);
+      // @ts-ignore
+      await res.decrement('fav_nums', { by: 1, transaction: t });
+    });
+  }
+
+  static async userLikeIt(art_id: number, type: number, uid: number): Promise<any> {
+    const favor = await Favor.findOne({
+      where: {
+        uid,
+        art_id,
+        type,
+      },
+    });
+    return favor ? true : false;
+  }
 }
 
 Favor.init(

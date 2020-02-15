@@ -107,3 +107,9 @@ export class LikeValidator extends PIntegerValidator {
     this.validateType = checkType;
   }
 }
+
+export class ClassicValidator extends LikeValidator {
+  constructor() {
+    super();
+  }
+}

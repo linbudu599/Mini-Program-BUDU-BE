@@ -2,3 +2,7 @@
 <l-button size="long" l-class="btn" bind:lintap="onVerifyToken">验证Token</l-button>
 <l-button size="long" type="warning" l-class="btn" bind:lintap="onGetLatest">获取最新一期</l-button>
 <l-button size="long" type="error" l-class="btn" bind:lintap="onLike">点赞</l-button>
+<l-button size="long" type="error" l-class="btn" bind:lintap="onDisLike">取消点赞</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onGetPrev">获取上一期</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onGetNext">获取下一期</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onGetByTypeAndId">根据type与id获取信息</l-button>

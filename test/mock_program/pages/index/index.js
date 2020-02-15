@@ -17,6 +17,7 @@ Page({
               type: 100
             },
             success: (res) => {
+              console.log(res.data)
               const code = res.statusCode.toString()
               if (code.startsWith('2')) {
                 wx.setStorageSync('token', res.data.token)
@@ -62,6 +63,65 @@ Page({
       method: "POST",
       data: {
         art_id: 1,
+        type: 100
+      },
+      success: (res) => {
+        console.log(res.data)
+      }
+    })
+  },
+
+  onDisLike() {
+    wx.request({
+      header: {
+        Authorization: this.encode()
+      },
+      url: 'http://localhost:8760/v1/like/cancel',
+      method: "POST",
+      data: {
+        art_id: 1,
+        type: 100
+      },
+      success: (res) => {
+        console.log(res.data)
+      }
+    })
+  },
+
+  onGetPrev() {
+    wx.request({
+      header: {
+        Authorization: this.encode()
+      },
+      url: 'http://localhost:8760/v1/classic/4/previous',
+      method: "GET",
+      success: (res) => {
+        console.log(res.data)
+      }
+    })
+  },
+  onGetNext() {
+    wx.request({
+      header: {
+        Authorization: this.encode()
+      },
+      url: 'http://localhost:8760/v1/classic/4/next',
+      method: "GET",
+      success: (res) => {
+        console.log(res.data)
+      }
+    })
+  },
+
+  onGetByTypeAndId() {
+    wx.request({
+      header: {
+        Authorization: this.encode()
+      },
+      url: 'http://localhost:8760/v1/classic/100/1',
+      method: "POST",
+      data: {
+        id: 1,
         type: 100
       },
       success: (res) => {
