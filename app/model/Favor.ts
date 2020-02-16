@@ -1,5 +1,5 @@
-import { Model, DataTypes } from 'sequelize';
-import { LikeError, DislikeError } from '../../util/types';
+import { Model, DataTypes,Op } from 'sequelize';
+import { LikeError, DislikeError,NotFound } from '../../util/types';
 import ArtSearcher from '../model/Art';
 import sequelize from './index';
 
@@ -62,6 +62,23 @@ export class Favor extends Model {
     });
     return favor ? true : false;
   }
+
+  static async getMyClassicFavors(uid:number) {
+    const arts = await Favor.findAll({
+        where: {
+            uid,
+            type:{
+                [Op.not]:400,
+            }
+        }
+    })
+    if(!arts){
+        throw new NotFound("没找到耶")
+    }
+   
+    return await ArtSearcher.getList(arts)
+}
+
 }
 
 Favor.init(

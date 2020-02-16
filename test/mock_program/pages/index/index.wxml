@@ -5,4 +5,7 @@
 <l-button size="long" type="error" l-class="btn" bind:lintap="onDisLike">取消点赞</l-button>
 <l-button size="long" l-class="btn" bind:lintap="onGetPrev">获取上一期</l-button>
 <l-button size="long" l-class="btn" bind:lintap="onGetNext">获取下一期</l-button>
-<l-button size="long" l-class="btn" bind:lintap="onGetByTypeAndId">根据type与id获取信息</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onGetByTypeAndId">获取期刊详情1</l-button>
+<l-button size="long" l-class="btn" bind:lintap="onGetClassicDetail">获取期刊详情2</l-button>
+<l-button type="warning" l-class="btn" size="long" bind:lintap="onGetMyFavorList">获取我喜欢的期刊</l-button>
+<l-button type="warning" l-class="btn" size="long" bind:lintap="onGetClassicFavor">获取期刊点赞情况</l-button>

@@ -130,6 +130,42 @@ Page({
     })
   },
 
+  onGetClassicDetail() {
+    wx.request({
+      url: 'http://localhost:8760/v1/classic/200/2',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+  onGetMyFavorList() {
+    wx.request({
+      url: 'http://localhost:8760/v1/classic/favor',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+  onGetClassicFavor() {
+    wx.request({
+      url: 'http://localhost:8760/v1/classic/100/1/favor',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
   encode() {
     const token = wx.getStorageSync('token');
     const encoded = Base64.encode(token + ":")

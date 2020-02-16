@@ -52,10 +52,12 @@ export class RegisterValidator extends Validator {
   }
 }
 
-function checkType({ body: { type } }: Context) {
+function checkType({ body, path }: any) {
+  let type = body.type || path.type;
   if (!type) {
     throw new Error('type must be specified');
   }
+  type = parseInt(type)
   if (!(type in LoginType)) {
     throw new Error('illegal type argus');
   }

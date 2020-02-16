@@ -6,7 +6,10 @@ const publicFields = {
   image: new DataTypes.STRING(),
   content: new DataTypes.STRING(),
   pubdate: new DataTypes.DATEONLY(),
-  fav_nums: new DataTypes.INTEGER(),
+  fav_nums: {
+    type: new DataTypes.INTEGER(),
+    defaultValue: 0,
+  },
   title: new DataTypes.STRING(),
   type: new DataTypes.TINYINT(),
 };
@@ -37,12 +40,15 @@ Sentence.init(publicFields, {
 
 export class Music extends Model {}
 
-Music.init(
-  Object.assign({}, publicFields, {
-    url: new DataTypes.STRING(),
-  }),
+const musicFields = Object.assign(
   {
-    sequelize,
-    tableName: 'music',
+    url: new DataTypes.STRING(),
   },
+  publicFields,
 );
+
+Music.init(musicFields, {
+  sequelize,
+  tableName: 'music',
+});
+
