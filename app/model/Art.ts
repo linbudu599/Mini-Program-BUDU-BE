@@ -52,6 +52,7 @@ class Art {
     };
   }
 
+  // 查询集合！
   static async getList(artInfoList: Favor[]) {
     const artInfoObj = {
       100: [],
@@ -68,6 +69,7 @@ class Art {
         continue;
       }
 
+      // 由于做了键名会被转为字符串
       key = parseInt(key);
       arts.push(await Art.getListByType(ids, key));
     }

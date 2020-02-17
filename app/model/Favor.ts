@@ -31,7 +31,7 @@ export class Favor extends Model {
       await res.increment('fav_nums', { by: 1, transaction: t });
     });
   }
-
+ 
   static async disLike(art_id: number, type: number, uid: number): Promise<any> {
     const record = await Favor.findOne({
       where: { art_id, type, uid },

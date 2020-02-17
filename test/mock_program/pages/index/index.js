@@ -119,7 +119,7 @@ Page({
         Authorization: this.encode()
       },
       url: 'http://localhost:8760/v1/classic/100/1',
-      method: "POST",
+      method: "GET",
       data: {
         id: 1,
         type: 100

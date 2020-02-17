@@ -41,7 +41,6 @@ export const classic = (server: Koa<DefaultState, DefaultContext>) => {
       const v = await new ClassicValidator().validate(ctx);
       const id = v.get('path.id');
       const type = parseInt(v.get('path.type'));
-      console.log(id, type);
       const artDetail = await new ArtSearcher(id, type).getDetail(ctx.auth.uid);
 
       // @ts-ignore
@@ -95,6 +94,7 @@ export const classic = (server: Koa<DefaultState, DefaultContext>) => {
       ctx.body = detail;
     });
 
+    // 获取用户点赞期刊
     router.get('/favor', new Auth().m, async ctx => {
       const uid = ctx.auth.uid;
       ctx.body = await Favor.getMyClassicFavors(uid);

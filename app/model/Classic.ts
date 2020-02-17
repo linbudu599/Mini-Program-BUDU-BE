@@ -51,4 +51,3 @@ Music.init(musicFields, {
   sequelize,
   tableName: 'music',
 });
-

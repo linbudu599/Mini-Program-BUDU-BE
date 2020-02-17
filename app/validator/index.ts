@@ -57,10 +57,29 @@ function checkType({ body, path }: any) {
   if (!type) {
     throw new Error('type must be specified');
   }
-  type = parseInt(type)
+  type = parseInt(type);
   if (!(type in LoginType)) {
     throw new Error('illegal type argus');
   }
+}
+
+function checkArtType({ body, path }: any) {
+  let type = body.type || path.type;
+  if (!type) {
+    throw new Error('type是必须参数');
+  }
+  type = parseInt(type);
+
+  if (!(type in ArtType)) {
+    throw new Error('type参数不合法');
+  }
+}
+
+export enum ArtType {
+  MOVIE = 100,
+  MUSIC = 200,
+  SENTENCE = 300,
+  BOOK = 400,
 }
 
 export enum LoginType {
@@ -106,7 +125,7 @@ export class EmptyValidator extends Validator {
 export class LikeValidator extends PIntegerValidator {
   constructor() {
     super();
-    this.validateType = checkType;
+    this.validateType = checkArtType;
   }
 }
 
