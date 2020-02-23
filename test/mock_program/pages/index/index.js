@@ -213,6 +213,32 @@ Page({
     })
   },
 
+  onGetMyFavorBookCount() {
+    wx.request({
+      url: 'http://localhost:8760/v1/book/favor/count',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+
+  onGetBookFavorStatus() {
+    wx.request({
+      url: 'http://localhost:8760/v1/book/1000/favor',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+
   encode() {
     const token = wx.getStorageSync('token');
     const encoded = Base64.encode(token + ":")

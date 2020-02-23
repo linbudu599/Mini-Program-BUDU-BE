@@ -78,6 +78,23 @@ export class Favor extends Model {
 
     return await ArtSearcher.getList(arts);
   }
+  static async getBookFavor(uid: number, book_id: number) {
+    const fav_nums = await Favor.count({
+      where: {
+        art_id: book_id,
+        type: 400,
+      },
+    });
+
+    const like_status = await Favor.findOne({
+      where: { art_id: book_id, uid },
+    });
+
+    return {
+      fav_nums,
+      like_status: like_status ? 1 : 0,
+    };
+  }
 }
 
 Favor.init(

@@ -12,3 +12,5 @@
 <l-button l-class="btn" size="long" bind:lintap="onGetHotBooks">获取热门书籍</l-button>
 <l-button l-class="btn" size="long" bind:lintap="onGetBookDetail">获取书籍详情</l-button>
 <l-button type="warning" l-class="btn" size="long" bind:lintap="onSearchBook">搜索书籍</l-button>
+<l-button type="warning" l-class="btn" size="long" bind:lintap="onGetMyFavorBookCount">获取我喜欢的书籍数量</l-button>
+<l-button type="warning" l-class="btn" size="long" bind:lintap="onGetBookFavorStatus">获取图书点赞情况</l-button>

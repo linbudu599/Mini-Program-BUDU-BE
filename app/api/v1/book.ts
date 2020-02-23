@@ -4,6 +4,7 @@ import Koa, { DefaultState, DefaultContext, Next, Context } from 'koa';
 import Auth from '../../middleware/auth';
 import { HotBook } from '../../model/Hot-Book';
 import { Book } from '../../model/Book';
+import { Favor } from '../../model/Favor';
 import { PIntegerValidator, SearchValidator } from '../../validator';
 
 const router = new Router({
@@ -41,6 +42,19 @@ export const book = (server: Koa<DefaultState, DefaultContext>) => {
       );
 
       ctx.body = { detail };
+    });
+
+    router.get('/favor/count', new Auth().m, async (ctx: Context) => {
+      const count = await Book.getMyFavorBookCount(ctx.auth.uid);
+
+      ctx.body = { count };
+    });
+
+    router.get('/:book_id/favor', new Auth().m, async (ctx: Context) => {
+      const v = await new PIntegerValidator().validate(ctx, { id: 'book_id' });
+
+      const detail = await Favor.getBookFavor(ctx.auth.uid, v.get('path.book_id'));
+      ctx.body = { ...detail };
     });
 
     server.use(router.routes()).use(router.allowedMethods());

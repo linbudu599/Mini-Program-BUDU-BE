@@ -2,6 +2,7 @@ import { Sequelize, Model, DataTypes } from 'sequelize';
 import sequelize from './index';
 import util from 'util';
 import axios from 'axios';
+import { Favor } from '../model/Favor';
 
 export class Book extends Model {
   id: number;
@@ -25,6 +26,16 @@ export class Book extends Model {
     );
     const detail = await axios.get(url);
     return detail.data;
+  }
+
+  static async getMyFavorBookCount(uid: number) {
+    const count = await Favor.count({
+      where: {
+        type: 400,
+        uid,
+      },
+    });
+    return count;
   }
 }
 // @ts-ignore
