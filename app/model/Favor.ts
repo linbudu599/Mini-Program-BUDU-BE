@@ -1,5 +1,5 @@
-import { Model, DataTypes,Op } from 'sequelize';
-import { LikeError, DislikeError,NotFound } from '../../util/types';
+import { Model, DataTypes, Op, Transaction } from 'sequelize';
+import { LikeError, DislikeError, NotFound } from '../../util/types';
 import ArtSearcher from '../model/Art';
 import sequelize from './index';
 
@@ -17,7 +17,7 @@ export class Favor extends Model {
       throw new LikeError('已经点过赞啦', 60001);
     }
 
-    return sequelize.transaction(async (t: any) => {
+    return sequelize.transaction(async (t: Transaction) => {
       await Favor.create(
         {
           art_id,
@@ -31,7 +31,7 @@ export class Favor extends Model {
       await res.increment('fav_nums', { by: 1, transaction: t });
     });
   }
- 
+
   static async disLike(art_id: number, type: number, uid: number): Promise<any> {
     const record = await Favor.findOne({
       where: { art_id, type, uid },
@@ -63,22 +63,21 @@ export class Favor extends Model {
     return favor ? true : false;
   }
 
-  static async getMyClassicFavors(uid:number) {
+  static async getMyClassicFavors(uid: number) {
     const arts = await Favor.findAll({
-        where: {
-            uid,
-            type:{
-                [Op.not]:400,
-            }
-        }
-    })
-    if(!arts){
-        throw new NotFound("没找到耶")
+      where: {
+        uid,
+        type: {
+          [Op.not]: 400,
+        },
+      },
+    });
+    if (!arts) {
+      throw new NotFound('没找到耶');
     }
-   
-    return await ArtSearcher.getList(arts)
-}
 
+    return await ArtSearcher.getList(arts);
+  }
 }
 
 Favor.init(

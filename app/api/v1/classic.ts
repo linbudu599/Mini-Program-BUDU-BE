@@ -19,10 +19,7 @@ export const classic = (server: Koa<DefaultState, DefaultContext>) => {
     // TODO: Extract Router And API
     // 获取最新一期
     router.get('/latest', new Auth().m, async (ctx: Context) => {
-      // 先排序 再取最后一条
-
-      // const flow = await User.findAll({});
-
+      // 降序下第一条
       const flow = (await Flow.findOne({
         order: [['index', 'DESC']],
       })) as Flow;
@@ -30,6 +27,7 @@ export const classic = (server: Koa<DefaultState, DefaultContext>) => {
       const detail = await ArtSearcher.getData(flow.art_id, flow.type);
 
       const likeLatest = await Favor.userLikeIt(flow.art_id, flow.type, ctx.auth.uid);
+      // 在实例上添加数据的方式
       // @ts-ignore
       detail.setDataValue('index', flow.index);
       // @ts-ignore

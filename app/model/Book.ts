@@ -10,9 +10,18 @@ export class Book extends Model {
     this.id = id;
   }
   async detail() {
+    const url = util.format('http://t.yushu.im/v2/book/id/%s', this.id);
+    const detail = await axios.get(url);
+    return detail.data;
+  }
+
+  static async searchFromServer(q: string, start: number, count: number, summary: number = 1) {
     const url = util.format(
       'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s',
-      this.id,
+      encodeURI(q),
+      count,
+      start,
+      summary,
     );
     const detail = await axios.get(url);
     return detail.data;

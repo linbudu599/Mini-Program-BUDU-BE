@@ -4,7 +4,7 @@ import Koa, { DefaultState, DefaultContext, Next, Context } from 'koa';
 import Auth from '../../middleware/auth';
 import { HotBook } from '../../model/Hot-Book';
 import { Book } from '../../model/Book';
-import { PIntegerValidator } from '../../validator';
+import { PIntegerValidator, SearchValidator } from '../../validator';
 
 const router = new Router({
   prefix: '/v1/book',
@@ -25,10 +25,22 @@ export const book = (server: Koa<DefaultState, DefaultContext>) => {
       };
     });
 
-    router.get(': id/detail', new Auth().m, async (ctx: Context) => {
+    router.get('/:id/detail', new Auth().m, async (ctx: Context) => {
       const v = await new PIntegerValidator().validate(ctx);
       const book = new Book(v.get('path.id'));
       ctx.body = await book.detail();
+    });
+
+    router.get('/search', new Auth().m, async (ctx: Context) => {
+      const v = await new SearchValidator().validate(ctx);
+
+      const detail = await Book.searchFromServer(
+        v.get('query.q'),
+        v.get('query.start'),
+        v.get('query.count'),
+      );
+
+      ctx.body = { detail };
     });
 
     server.use(router.routes()).use(router.allowedMethods());

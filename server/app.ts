@@ -11,6 +11,7 @@ import { classic } from '../app/api/v1/classic';
 import { user } from '../app/api/v1/user';
 import { token } from '../app/api/v1/token';
 import { favor } from '../app/api/v1/like';
+import { book } from '../app/api/v1/book';
 
 import config from '../config/config';
 import fs from 'fs';
@@ -55,6 +56,7 @@ classic(app);
 user(app);
 token(app);
 favor(app);
+book(app);
 
 app.use(router.routes()).use(router.allowedMethods());
 

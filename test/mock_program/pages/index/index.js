@@ -142,6 +142,7 @@ Page({
       }
     })
   },
+
   onGetMyFavorList() {
     wx.request({
       url: 'http://localhost:8760/v1/classic/favor',
@@ -154,6 +155,7 @@ Page({
       }
     })
   },
+
   onGetClassicFavor() {
     wx.request({
       url: 'http://localhost:8760/v1/classic/100/1/favor',
@@ -166,6 +168,51 @@ Page({
       }
     })
   },
+
+  onGetHotBooks() {
+    wx.request({
+      url: 'http://localhost:8760/v1/book/hot_list',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+
+  onGetBookDetail() {
+    wx.request({
+      url: 'http://localhost:8760/v1/book/1398/detail',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+
+  onSearchBook() {
+    wx.request({
+      url: 'http://localhost:8760/v1/book/search',
+      method: 'GET',
+      data: {
+        q: "东野圭吾",
+        start: 4,
+        count: 8
+      },
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this.encode()
+      }
+    })
+  },
+
   encode() {
     const token = wx.getStorageSync('token');
     const encoded = Base64.encode(token + ":")

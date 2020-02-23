@@ -134,3 +134,19 @@ export class ClassicValidator extends LikeValidator {
     super();
   }
 }
+
+export class SearchValidator extends Validator {
+  constructor() {
+    super();
+    this.q = [new Rule('isLength', '关键词不能为空', { min: 1, max: 16 })];
+    // 不传要给默认值 传了要校验
+    this.start = [
+      new Rule('isInt', '不符规范 ', { min: 0, max: 6000 }),
+      new Rule('optional', '', 0),
+    ];
+    this.count = [
+      new Rule('isInt', '不符规范 ', { min: 1, max: 20 }),
+      new Rule('optional', '', 20),
+    ];
+  }
+}

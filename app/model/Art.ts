@@ -73,11 +73,20 @@ class Art {
       key = parseInt(key);
       arts.push(await Art.getListByType(ids, key));
     }
-
+    // [[],[],[]]
     return flatten(arts);
   }
 
-  static async getListByType(ids, type) {
+  /**
+   *
+   *
+   * @static
+   * @param {number[]} ids
+   * @param {number} type
+   * @returns
+   * @memberof Art
+   */
+  static async getListByType(ids: number[], type: number) {
     let arts = [];
     const finder = {
       where: {
