@@ -150,3 +150,15 @@ export class SearchValidator extends Validator {
     ];
   }
 }
+
+export class AddShortCommentValidator extends PIntegerValidator {
+  constructor() {
+    super();
+    this.content = [
+      new Rule('isLength', '必须在1~12个字符', {
+        min: 1,
+        max: 12,
+      }),
+    ];
+  }
+}

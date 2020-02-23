@@ -11,8 +11,15 @@
 ## Bug
 
 - [x] Sequelize 报错 `Cannot read property 'hooks' of undefined`，关闭 `User.sync({force: true})`
-
 - [x] `Class constructor Model cannot be invoked without 'new'`，在`tsconfig.json`中将编译目标设置为`es6`
+
+## 学习
+
+- 业务表与实体表的规划
+- 避免循环查询，使用in查询
+- 数据库事务，保证成批的处理要么全部执行，要么都不执行，保证一致性
+- ACID，原子&一致&隔离持久
+- 专门整一个业务相关无数据的Model，封装静态方法，比如根据art_id与type确定一条唯一数据。
 
 ## 开发中
 

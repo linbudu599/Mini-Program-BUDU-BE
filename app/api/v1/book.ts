@@ -5,7 +5,9 @@ import Auth from '../../middleware/auth';
 import { HotBook } from '../../model/Hot-Book';
 import { Book } from '../../model/Book';
 import { Favor } from '../../model/Favor';
-import { PIntegerValidator, SearchValidator } from '../../validator';
+import { successHandler } from '../../helper';
+import { Comment } from '../../model/Comment';
+import { PIntegerValidator, SearchValidator, AddShortCommentValidator } from '../../validator';
 
 const router = new Router({
   prefix: '/v1/book',
@@ -55,6 +57,28 @@ export const book = (server: Koa<DefaultState, DefaultContext>) => {
 
       const detail = await Favor.getBookFavor(ctx.auth.uid, v.get('path.book_id'));
       ctx.body = { ...detail };
+    });
+
+    router.get('/add/short_comment', new Auth().m, async (ctx: Context) => {
+      const v = await new AddShortCommentValidator().validate(ctx, { id: 'book_id' });
+
+      await Comment.addComment(v.get('body.book_id'), v.get('body.content'));
+
+      successHandler();
+    });
+
+    router.get('/:book_id/short_comment', new Auth().m, async (ctx: Context) => {
+      const v = await new PIntegerValidator().validate(ctx, { id: 'book_id' });
+
+      const res = await Comment.getComment(v.get('path.id'));
+
+      ctx.body = { res };
+    });
+
+    router.get('/hot_keyword', async (ctx: Context) => {
+      ctx.body = {
+        hot: ['Python', '哈利·波特', '金庸', '村上春树', '东野圭吾', '韩寒', '白夜行'],
+      };
     });
 
     server.use(router.routes()).use(router.allowedMethods());
