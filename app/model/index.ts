@@ -1,5 +1,6 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Model } from 'sequelize';
 import config from '../../config/config';
+import { unset, cloneDeep, isArray } from 'lodash';
 const { DEV_DB, PROD_DB } = config;
 const dbUrl = process.env.NODE_ENV === 'development' ? DEV_DB : PROD_DB;
 
@@ -27,5 +28,22 @@ const sequelize = new Sequelize(dbUrl, {
     },
   },
 });
+
+Model.prototype.toJSON = function() {
+  // @ts-ignore
+  let data = cloneDeep(this.dataValues);
+  unset(data, 'updated_at');
+  unset(data, 'created_at');
+  unset(data, 'deleted_at');
+    // @ts-ignore
+  if (isArray(this.exclude)) {
+    // @ts-ignore
+    this.exclude.forEach((prop: string) => {
+      unset(data, prop);
+    });
+  }
+
+  return data;
+};
 
 export default sequelize;

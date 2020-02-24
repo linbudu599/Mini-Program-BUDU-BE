@@ -23,15 +23,13 @@ export const book = (server: Koa<DefaultState, DefaultContext>) => {
     const books = await HotBook.getAll();
 
     router.get('/hot_list', new Auth().m, async (ctx: Context) => {
-      ctx.body = {
-        books,
-      };
+      ctx.body = books;
     });
 
     router.get('/:id/detail', new Auth().m, async (ctx: Context) => {
       const v = await new PIntegerValidator().validate(ctx);
-      const book = new Book(v.get('path.id'));
-      ctx.body = await book.detail();
+      const book = new Book();
+      ctx.body = await book.detail(v.get('path.id'));
     });
 
     router.get('/search', new Auth().m, async (ctx: Context) => {
@@ -70,9 +68,13 @@ export const book = (server: Koa<DefaultState, DefaultContext>) => {
     router.get('/:book_id/short_comment', new Auth().m, async (ctx: Context) => {
       const v = await new PIntegerValidator().validate(ctx, { id: 'book_id' });
 
-      const res = await Comment.getComment(v.get('path.id'));
+      const bookId = v.get('path.book_id');
+      const comments = await Comment.getComment(bookId);
 
-      ctx.body = { res };
+      ctx.body = {
+        comments,
+        bookId,
+      };
     });
 
     router.get('/hot_keyword', async (ctx: Context) => {

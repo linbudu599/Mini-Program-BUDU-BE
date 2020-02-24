@@ -5,13 +5,11 @@ import axios from 'axios';
 import { Favor } from '../model/Favor';
 
 export class Book extends Model {
-  id: number;
-  constructor(id: number) {
+  constructor() {
     super();
-    this.id = id;
   }
-  async detail() {
-    const url = util.format('http://t.yushu.im/v2/book/id/%s', this.id);
+  async detail(id: number) {
+    const url = util.format('http://t.yushu.im/v2/book/id/%s', id);
     const detail = await axios.get(url);
     return detail.data;
   }

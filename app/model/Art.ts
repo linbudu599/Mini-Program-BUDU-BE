@@ -2,6 +2,7 @@
 import { Movie, Sentence, Music } from '../model/Classic';
 import { NotFound } from '../../util/types';
 import { Op } from 'sequelize';
+import { Book } from './Book';
 import { Favor } from './Favor';
 import { flatten } from 'lodash';
 
@@ -31,6 +32,12 @@ class Art {
         break;
       case 300:
         res = await Sentence.scope(scope as string).findOne(condition);
+        break;
+      case 400:
+        res = await Book.scope(scope as string).findOne(condition);
+        if (!res) {
+          res = await Book.create({ id: art_id });
+        }
         break;
 
       default:

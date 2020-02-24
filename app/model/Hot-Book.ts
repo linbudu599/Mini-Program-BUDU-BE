@@ -45,7 +45,8 @@ export class HotBook extends Model {
       }
     });
 
-    book.setDataValue('count', count);
+    book.setDataValue('fav_nums', count);
+    return book;
   }
 }
 

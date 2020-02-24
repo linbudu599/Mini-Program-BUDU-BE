@@ -2,9 +2,6 @@ import { Sequelize, Model, DataTypes } from 'sequelize';
 import sequelize from './index';
 
 export class Comment extends Model {
-  constructor() {
-    super();
-  }
 
   static async addComment(book_id: number, content: string) {
     const comment = await Comment.findOne({
@@ -34,6 +31,7 @@ export class Comment extends Model {
     return comments;
   }
 }
+
 // @ts-ignore
 Comment.init(
   {
