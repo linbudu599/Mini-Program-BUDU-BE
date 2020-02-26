@@ -1,6 +1,6 @@
 import validator from 'validator';
 import { Context } from 'koa';
-import { ParamException } from './types';
+import { ParamException } from './exception';
 import { get, last, set, cloneDeep } from 'lodash';
 import { findMembers } from '.';
 

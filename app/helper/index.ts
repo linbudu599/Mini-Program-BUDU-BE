@@ -1,4 +1,4 @@
-import { Success } from '../../util/types';
+import { Success } from '../../util/exception';
 import bcrypt from 'bcryptjs';
 
 export const successHandler = (msg: string = 'OK', errCode?: number): never => {

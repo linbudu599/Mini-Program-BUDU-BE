@@ -1,5 +1,4 @@
 import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize';
-
 import sequelize from './index';
 
 const publicFields = {

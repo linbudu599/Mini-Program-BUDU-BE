@@ -1,18 +1,20 @@
 import { Context, Next } from 'koa';
-import { HttpException } from '../../util/types';
+import { HttpException } from '../../util/exception';
 
 const dev: boolean = process.env.NODE_ENV === 'development';
 
+// 全局异常处理
 export const catchError = async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (error) {
-    console.log(error);
     const isHttpException = error instanceof HttpException;
+    // 非预置错误类型
     if (!dev && !isHttpException) {
       throw error;
     }
-    const { errorCode, status, message }: HttpException = error;
+    const { errorCode, status, message } = error;
+
     if (isHttpException) {
       ctx.status = status;
       ctx.body = {

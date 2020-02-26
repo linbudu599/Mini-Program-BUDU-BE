@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import axios from 'axios';
 import generateToken from '../../../util/jwt';
 import { TokenValidator, LoginType, EmptyValidator } from '../../validator';
-import { ParamException } from '../../../util/types';
+import { ParamException } from '../../../util/exception';
 import { Auth } from '../../middleware/auth';
 import WXManager from '../../service/wx';
 import User from '../../model/User';

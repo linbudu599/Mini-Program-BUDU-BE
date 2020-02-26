@@ -3,7 +3,7 @@ import axios from 'axios';
 import User from '../model/User';
 import config from '../../secret.config';
 import { Auth } from '../middleware/auth';
-import { AuthorizationFailure } from '../../util/types';
+import { AuthorizationFailure } from '../../util/exception';
 import generateToken from '../../util/jwt';
 const { APP_ID, APP_SECRET, VALIDATE_URL } = config;
 

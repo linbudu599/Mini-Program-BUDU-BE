@@ -1,7 +1,9 @@
 import { Sequelize, Model } from 'sequelize';
 import config from '../../config/config';
+import secretConfig from '../../secret.config';
 import { unset, cloneDeep, isArray } from 'lodash';
 const { DEV_DB, PROD_DB } = config;
+const { HOST } = secretConfig;
 const dbUrl = process.env.NODE_ENV === 'development' ? DEV_DB : PROD_DB;
 
 // 在这里定义的配置会适用于所有使用该实例创建的表
@@ -35,7 +37,16 @@ Model.prototype.toJSON = function() {
   unset(data, 'updated_at');
   unset(data, 'created_at');
   unset(data, 'deleted_at');
-    // @ts-ignore
+
+  for (let key in data) {
+    if (key === 'image') {
+      if (!data[key].startsWith('http')) {
+        data[key] = `${secretConfig.HOST}/${data[key]}`;
+      }
+    }
+  }
+
+  // @ts-ignore
   if (isArray(this.exclude)) {
     // @ts-ignore
     this.exclude.forEach((prop: string) => {

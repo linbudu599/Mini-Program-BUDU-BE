@@ -1,5 +1,5 @@
 import { Model, DataTypes, Op, Transaction } from 'sequelize';
-import { LikeError, DislikeError, NotFound } from '../../util/types';
+import { LikeError, DislikeError, NotFound } from '../../util/exception';
 import ArtSearcher from '../model/Art';
 import sequelize from './index';
 

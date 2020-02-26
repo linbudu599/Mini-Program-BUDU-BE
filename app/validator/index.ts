@@ -1,6 +1,6 @@
 import { Validator, Rule } from '../../util/validator';
 import { Context } from 'koa';
-import { ParamException } from '../../util/types';
+import { ParamException } from '../../util/exception';
 
 import User from '../model/User';
 

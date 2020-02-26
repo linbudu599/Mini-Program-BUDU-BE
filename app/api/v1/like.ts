@@ -7,7 +7,7 @@ import Flow from '../../model/Flow';
 import ArtSearcher from '../../model/Art';
 import { successHandler } from '../../helper';
 import { Favor } from '../../model/Favor';
-import { ParamException } from '../../../util/types';
+import { ParamException } from '../../../util/exception';
 
 const router = new Router({
   prefix: '/v1/like',

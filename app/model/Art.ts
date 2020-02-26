@@ -1,10 +1,12 @@
 // @ts-nocheck
 import { Movie, Sentence, Music } from '../model/Classic';
-import { NotFound } from '../../util/types';
+import { NotFound } from '../../util/exception';
 import { Op } from 'sequelize';
 import { Book } from './Book';
 import { Favor } from './Favor';
 import { flatten } from 'lodash';
+
+import { config } from '../../secret.config';
 
 class Art {
   [x: string]: any;
@@ -43,6 +45,11 @@ class Art {
       default:
         break;
     }
+    if (res && res.image) {
+      let fullImgUrl = res.dataValues.image;
+      res.dataValues.image = `${config.host}${fullImgUrl}`;
+    }
+    console.log(res);
     return res!;
   }
 

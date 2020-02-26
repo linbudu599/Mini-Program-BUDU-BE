@@ -6,7 +6,7 @@ import Auth from '../../middleware/auth';
 import Flow from '../../model/Flow';
 import ArtSearcher from '../../model/Art';
 import { Favor } from '../../model/Favor';
-import { ParamException, NotFound } from '../../../util/types';
+import { ParamException, NotFound } from '../../../util/exception';
 
 const router = new Router({
   prefix: '/v1/classic',
