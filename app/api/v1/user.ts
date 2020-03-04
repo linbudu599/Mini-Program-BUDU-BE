@@ -2,7 +2,7 @@ import Koa, { DefaultState, DefaultContext, Next, Context } from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 
-import { successHandler } from '../../helper';
+import { successHandler } from '../../util/successHandler';
 import { RegisterValidator } from '../../validator';
 
 import User from '../../model/User';

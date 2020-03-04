@@ -1,10 +1,10 @@
 import util from 'util';
 import axios from 'axios';
 import User from '../model/User';
-import config from '../../secret.config';
+import config from '../../config/secret.config';
 import { Auth } from '../middleware/auth';
-import { AuthorizationFailure } from '../../util/exception';
-import generateToken from '../../util/jwt';
+import { AuthorizationFailure } from '../util/exception';
+import generateToken from '../util/jwt';
 const { APP_ID, APP_SECRET, VALIDATE_URL } = config;
 
 class WXManager {

@@ -1,5 +1,5 @@
 import { Context, Next } from 'koa';
-import { HttpException } from '../../util/exception';
+import { HttpException } from '../util/exception';
 
 const dev: boolean = process.env.NODE_ENV === 'development';
 

@@ -5,9 +5,9 @@ import Koa, { DefaultState, DefaultContext, Next, Context } from 'koa';
 import Auth from '../../middleware/auth';
 import Flow from '../../model/Flow';
 import ArtSearcher from '../../model/Art';
-import { successHandler } from '../../helper';
+import { successHandler } from '../../util/successHandler';
 import { Favor } from '../../model/Favor';
-import { ParamException } from '../../../util/exception';
+import { ParamException } from '../../util/exception';
 
 const router = new Router({
   prefix: '/v1/like',

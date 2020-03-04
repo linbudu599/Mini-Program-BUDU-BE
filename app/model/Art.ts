@@ -6,7 +6,7 @@ import { Book } from './Book';
 import { Favor } from './Favor';
 import { flatten } from 'lodash';
 
-import { config } from '../../secret.config';
+import { config } from '../../config/secret.config';
 
 class Art {
   [x: string]: any;

@@ -2,7 +2,7 @@ import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize';
 
 import bcrypt from 'bcryptjs';
 
-import { AuthorizationFailure } from '../../util/exception';
+import { AuthorizationFailure } from '../util/exception';
 
 import sequelize from './index';
 

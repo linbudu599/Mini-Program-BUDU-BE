@@ -5,7 +5,7 @@ import Auth from '../../middleware/auth';
 import { HotBook } from '../../model/Hot-Book';
 import { Book } from '../../model/Book';
 import { Favor } from '../../model/Favor';
-import { successHandler } from '../../helper';
+import { successHandler } from '../../util/successHandler';
 import { Comment } from '../../model/Comment';
 import { PIntegerValidator, SearchValidator, AddShortCommentValidator } from '../../validator';
 

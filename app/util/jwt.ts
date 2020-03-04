@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import config from '../config/config';
+import config from '../../config';
 
 const {
   security: { secretKey, expiresIn },

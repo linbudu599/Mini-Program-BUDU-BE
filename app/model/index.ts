@@ -1,6 +1,6 @@
 import { Sequelize, Model } from 'sequelize';
-import config from '../../config/config';
-import secretConfig from '../../secret.config';
+import config from '../../config';
+import secretConfig from '../../config/secret.config';
 import { unset, cloneDeep, isArray } from 'lodash';
 const { DEV_DB, PROD_DB } = config;
 const { HOST } = secretConfig;

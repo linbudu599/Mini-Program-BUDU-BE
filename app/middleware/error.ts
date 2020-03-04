@@ -1,3 +1,4 @@
+// This Middleware is not used.
 import Koa from 'koa';
 
 export const handler = async (ctx: Koa.Context, next: Koa.Next) => {

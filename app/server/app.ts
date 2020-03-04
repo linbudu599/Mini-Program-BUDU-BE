@@ -3,15 +3,15 @@ import Router from 'koa-router';
 import chalk from 'chalk';
 import logger from 'koa-logger';
 
-import CrossOrigin from '../app/middleware/cross-origin';
-import { catchError } from '../app/middleware/exception';
+import CrossOrigin from '../middleware/cross-origin';
+import { catchError } from '../middleware/exception';
 
-import route from '../app/router';
-import { classic } from '../app/api/v1/classic';
-import { user } from '../app/api/v1/user';
-import { token } from '../app/api/v1/token';
-import { favor } from '../app/api/v1/like';
-import { book } from '../app/api/v1/book';
+import route from '../router';
+import { classic } from '../api/v1/classic';
+import { user } from '../api/v1/user';
+import { token } from '../api/v1/token';
+import { favor } from '../api/v1/like';
+import { book } from '../api/v1/book';
 
 import path from 'path';
 

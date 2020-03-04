@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken';
-
 export const findMembers = (instance: any, { prefix, specifiedType, filter }: any) => {
   // 递归函数
   const find = (instance: any): any => {
@@ -26,20 +24,4 @@ export const findMembers = (instance: any, { prefix, specifiedType, filter }: an
   };
 
   return find(instance);
-};
-
-export const generateToken = (uid: any, scope: any) => {
-  const secretKey = (global as any).config.security.secretKey;
-  const expiresIn = (global as any).config.security.expiresIn;
-  const token = jwt.sign(
-    {
-      uid,
-      scope,
-    },
-    secretKey,
-    {
-      expiresIn,
-    },
-  );
-  return token;
 };

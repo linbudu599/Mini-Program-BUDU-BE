@@ -1,7 +1,7 @@
 import basicAuth from 'basic-auth';
-import { Forbidden } from '../../util/exception';
+import { Forbidden } from '../util/exception';
 import jwt from 'jsonwebtoken';
-import config from '../../config/config';
+import config from '../../config';
 import { Context, Next } from 'koa';
 
 interface IDecode {
