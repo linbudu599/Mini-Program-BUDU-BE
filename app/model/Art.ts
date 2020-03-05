@@ -1,15 +1,14 @@
 // @ts-nocheck
 import { Movie, Sentence, Music } from '../model/Classic';
-import { NotFound } from '../../util/exception';
+import { NotFound } from '../util/exception';
 import { Op } from 'sequelize';
 import { Book } from './Book';
 import { Favor } from './Favor';
 import { flatten } from 'lodash';
 
-import { config } from '../../config/secret.config';
+import config from '../../config/secret.config';
 
 class Art {
-  [x: string]: any;
   art_id: number;
   type: number;
   constructor(art_id: number, type: number) {
@@ -24,6 +23,7 @@ class Art {
       },
     };
     let res = null;
+    // 排除时间信息
     const scope = useScope ? 'bh' : null;
     switch (type) {
       case 100:
@@ -47,9 +47,8 @@ class Art {
     }
     if (res && res.image) {
       let fullImgUrl = res.dataValues.image;
-      res.dataValues.image = `${config.host}${fullImgUrl}`;
+      res.dataValues.image = `${config.HOST}${fullImgUrl}`;
     }
-    console.log(res);
     return res!;
   }
 
@@ -91,15 +90,6 @@ class Art {
     return flatten(arts);
   }
 
-  /**
-   *
-   *
-   * @static
-   * @param {number[]} ids
-   * @param {number} type
-   * @returns
-   * @memberof Art
-   */
   static async getListByType(ids: number[], type: number) {
     let arts = [];
     const finder = {

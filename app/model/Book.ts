@@ -1,8 +1,8 @@
-import { Sequelize, Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import sequelize from './index';
 import util from 'util';
 import axios from 'axios';
-import { Favor } from '../model/Favor';
+import { Favor } from './Favor';
 
 export class Book extends Model {
   constructor() {
@@ -36,7 +36,7 @@ export class Book extends Model {
     return count;
   }
 }
-// @ts-ignore
+
 Book.init(
   {
     id: {

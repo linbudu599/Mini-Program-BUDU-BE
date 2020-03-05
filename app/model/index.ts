@@ -12,7 +12,6 @@ const sequelize = new Sequelize(dbUrl, {
   dialect: 'mysql',
   timezone: '+08:00',
   logging: console.log,
-  // logging-options:
   define: {
     timestamps: true,
     paranoid: true,

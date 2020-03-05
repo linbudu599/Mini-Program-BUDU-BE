@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import sequelize from './index';
 
 const publicFields = {

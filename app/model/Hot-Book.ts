@@ -15,10 +15,12 @@ export class HotBook extends Model {
 
     const ids: number[] = [];
 
+    // 热门书籍id
     books.forEach(({ id }: any) => {
       ids.push(id);
     });
 
+    // 根据id获得对应热门书籍喜欢数
     const favors = await Favor.findAll({
       where: {
         art_id: {
@@ -37,11 +39,11 @@ export class HotBook extends Model {
     return books;
   }
 
-  static getEachBookStatus(book: any, favors: any[]) {
+  static getEachBookStatus(book: any, favors: Favor[]) {
     let count: number = 0;
     favors.forEach(favor => {
       if (book.id === favor.art_id) {
-        count = favor.get('count');
+        count = favor.get('count') as number;
       }
     });
 

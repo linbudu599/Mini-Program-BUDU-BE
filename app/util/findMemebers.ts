@@ -1,4 +1,7 @@
-export const findMembers = (instance: any, { prefix, specifiedType, filter }: any) => {
+export const findMembers = (
+  instance: any,
+  { prefix, specifiedType, filter }: { [x: string]: Function },
+) => {
   // 递归函数
   const find = (instance: any): any => {
     //基线条件（跳出递归）

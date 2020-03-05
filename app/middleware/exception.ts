@@ -8,13 +8,15 @@ export const catchError = async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (error) {
+    // console.log(error);
     const isHttpException = error instanceof HttpException;
-    // 非预置错误类型
+    // 在生产环境下非预置错误类型直接抛错
     if (!dev && !isHttpException) {
       throw error;
     }
     const { errorCode, status, message } = error;
 
+    // 对于预置错误，返回较详细的信息
     if (isHttpException) {
       ctx.status = status;
       ctx.body = {
@@ -23,7 +25,6 @@ export const catchError = async (ctx: Context, next: Next) => {
         message,
       };
     } else {
-      // unknown error
       ctx.status = 500;
       ctx.body = {
         errorCode: 999,

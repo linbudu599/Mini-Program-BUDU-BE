@@ -1,6 +1,6 @@
 import { Model, DataTypes, Op, Transaction } from 'sequelize';
-import { LikeError, DislikeError, NotFound } from '../../util/exception';
-import ArtSearcher from '../model/Art';
+import { LikeError, DislikeError, NotFound } from '../util/exception';
+import ArtSearcher from './Art';
 import sequelize from './index';
 
 export class Favor extends Model {
@@ -17,6 +17,7 @@ export class Favor extends Model {
       throw new LikeError('已经点过赞啦', 60001);
     }
 
+    // 事务
     return sequelize.transaction(async (t: Transaction) => {
       await Favor.create(
         {

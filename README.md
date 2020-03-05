@@ -10,12 +10,11 @@
 
 ## TODO
 
-- [] 路由集中转发
-- [] 重写校验器
-- [] 精简冗余代码
-- [] 单元测试
-- [] 减少代码中的`any`
-- [] 函数注释
+- [ ] 路由集中转发
+- [ ] 精简冗余代码
+- [ ] 单元测试
+- [ ] 减少代码中的`any`
+- [ ] 函数注释
 
 ## 目录结构
 
@@ -28,7 +27,7 @@
   | - model ----- Sequelize模型
   | - router ----- 路由配置
   | - service ----- 处理微信获取openId
-  | - validator ----- 校验器，基于Lin-validator二次开发，添加了TS等支持
+  | - validator ----- 来自于Lin-CMS中的Lin-Validator
   | - server ----- 入口文件
 | - config ----- 配置文件相关
 | - static ----- 静态资源
@@ -51,5 +50,4 @@
 - ACID，原子&一致&隔离持久
 - 专门整一个业务相关无数据的 Model，封装静态方法，比如根据 art_id 与 type 确定一条唯一数据。
 - 无感刷新 携带令牌访问 过期返回 403，前端重新获取令牌，带着新令牌再请求前面的接口。
-
 - 双令牌 access_token refresh_token，用后者获取一个新的前者，在每次获取 access_token 的时候刷新 refresh_token。太长时间没使用就过期啦。

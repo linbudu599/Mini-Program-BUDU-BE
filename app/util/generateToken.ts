@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
+import config from '../../config/secret.config';
 
-export const generateToken = (uid: any, scope: any) => {
-  const secretKey = (global as any).config.security.secretKey;
-  const expiresIn = (global as any).config.security.expiresIn;
+const generateToken = (uid: any, scope: any) => {
+  const secretKey = config.SECURITY.secretKey;
+  const expiresIn = config.SECURITY.expiresIn;
   const token = jwt.sign(
     {
       uid,
@@ -15,3 +16,5 @@ export const generateToken = (uid: any, scope: any) => {
   );
   return token;
 };
+
+export default generateToken;

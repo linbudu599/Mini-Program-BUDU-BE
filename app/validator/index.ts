@@ -8,6 +8,7 @@ import User from '../model/User';
 export class PIntegerValidator extends Validator {
   public constructor() {
     super();
+    console.log(this.id, typeof this.id);
     this.id = [
       new Rule('isInt', '需要是正整数', {
         min: 1,

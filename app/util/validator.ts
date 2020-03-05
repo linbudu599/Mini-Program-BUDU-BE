@@ -4,8 +4,6 @@ import { ParamException } from './exception';
 import { get, last, set, cloneDeep } from 'lodash';
 import { findMembers } from './findMemebers';
 
-// FIXME: refractor by generics
-
 export class Validator {
   [prop: string]: any;
   constructor() {
@@ -13,7 +11,7 @@ export class Validator {
     this.parsed = {};
   }
 
-  private assembleAllParams({ request: { header, query, body }, params }: Context): any {
+  private assembleAllParams({ request: { header, query, body }, params }: Context): object {
     return {
       body,
       query,
@@ -22,7 +20,7 @@ export class Validator {
     };
   }
 
-  public get(path: string, parsed: boolean = true): any {
+  public get(path: string, parsed: object = {}): any {
     if (parsed) {
       // 获取解析对象的值
       const value = get(this.parsed, path, null);

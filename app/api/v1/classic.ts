@@ -102,7 +102,6 @@ export const classic = (server: Koa<DefaultState, DefaultContext>) => {
       const v = await new ClassicValidator().validate(ctx);
       const id = v.get('path.id');
       const type = parseInt(v.get('path.type'));
-      console.log(id);
       const detail = await new ArtSearcher(id, type).getDetail(ctx.auth.uid);
 
       ctx.body = {

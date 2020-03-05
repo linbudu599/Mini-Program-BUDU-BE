@@ -1,42 +1,44 @@
 import basicAuth from 'basic-auth';
 import { Forbidden } from '../util/exception';
 import jwt from 'jsonwebtoken';
-import config from '../../config';
+import config from '../../config/secret.config';
 import { Context, Next } from 'koa';
 
 interface IDecode {
   uid: string;
-  scope: string;
+  scope: number;
 }
 
+// usage: new Auth().m
 export class Auth {
+  level: number;
   static COMMON: number;
   static ADMIN: number;
   static MINI_PROGRAM: number;
 
-  [X: string]: any;
-
   constructor(level?: number) {
     this.level = level || 1;
-    this.COMMON = 8;
-    this.MINI_PROGRAM = 8;
-    this.ADMIN = 16;
+    Auth.COMMON = 8;
+    Auth.MINI_PROGRAM = 8;
+    Auth.ADMIN = 16;
   }
 
   get m() {
     return async (ctx: Context, next: Next) => {
-      let decode;
+      let decode: IDecode;
       let errMsg = 'Token Uuanthorized';
 
+      // 解密Token
       const userToken = basicAuth(ctx.req);
 
       if (!userToken || !userToken.name) {
-        throw new Forbidden('禁止访问嗷', 10003);
+        throw new Forbidden('禁止访问', 10003);
       }
 
       try {
-        decode = jwt.verify(userToken.name, config.security.secretKey) as IDecode;
+        decode = jwt.verify(userToken.name, config.SECURITY.secretKey) as IDecode;
       } catch (error) {
+        // jwt内置错误
         if (error.name === 'TokenExpiredError') {
           errMsg = 'Token Expired';
         }
@@ -47,17 +49,19 @@ export class Auth {
         throw new Forbidden('权限不足');
       }
 
+      const { uid, scope } = decode;
+
       ctx.auth = {
-        uid: decode.uid,
-        scope: decode.scope,
+        uid,
+        scope,
       };
       await next();
     };
   }
 
-  static verifyToken(token: string) {
+  static verifyToken(token: string): boolean {
     try {
-      jwt.verify(token, config.security.secretKey);
+      jwt.verify(token, config.SECURITY.secretKey);
       return true;
     } catch (error) {
       return false;

@@ -1,8 +1,7 @@
 import Koa, { DefaultState, DefaultContext, Next, Context } from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
-import axios from 'axios';
-import generateToken from '../../util/jwt';
+import generateToken from '../../util/generateToken';
 import { TokenValidator, LoginType, EmptyValidator } from '../../validator';
 import { ParamException } from '../../util/exception';
 import { Auth } from '../../middleware/auth';
@@ -17,8 +16,7 @@ router.use(bodyParser());
 export const token = (server: Koa<DefaultState, DefaultContext>) => {
   server.use(async (ctx: Context, next: Next) => {
     router.post('/', async (ctx: Context) => {
-      const v = new TokenValidator();
-      await v.validate(ctx);
+      const v = await new TokenValidator().validate(ctx);
 
       let token;
 
@@ -42,7 +40,7 @@ export const token = (server: Koa<DefaultState, DefaultContext>) => {
 
     router.post('/verify', async (ctx: Context) => {
       const v = new EmptyValidator().validate(ctx);
-      const result = Auth.verifyToken((await v).get('body.token'));
+      const result: boolean = Auth.verifyToken((await v).get('body.token'));
       ctx.body = { is_valid: result };
     });
 

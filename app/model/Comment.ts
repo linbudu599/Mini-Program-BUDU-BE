@@ -1,8 +1,7 @@
-import { Sequelize, Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import sequelize from './index';
 
 export class Comment extends Model {
-
   static async addComment(book_id: number, content: string) {
     const comment = await Comment.findOne({
       where: {
@@ -32,7 +31,6 @@ export class Comment extends Model {
   }
 }
 
-// @ts-ignore
 Comment.init(
   {
     content: {

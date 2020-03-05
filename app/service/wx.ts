@@ -4,7 +4,7 @@ import User from '../model/User';
 import config from '../../config/secret.config';
 import { Auth } from '../middleware/auth';
 import { AuthorizationFailure } from '../util/exception';
-import generateToken from '../util/jwt';
+import generateToken from '../util/generateToken';
 const { APP_ID, APP_SECRET, VALIDATE_URL } = config;
 
 class WXManager {
