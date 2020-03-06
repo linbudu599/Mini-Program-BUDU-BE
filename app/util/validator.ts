@@ -20,7 +20,7 @@ export class Validator {
     };
   }
 
-  public get(path: string, parsed: object = {}): any {
+  public get(path: string, parsed?: object): any {
     if (parsed) {
       // 获取解析对象的值
       const value = get(this.parsed, path, null);
@@ -31,11 +31,13 @@ export class Validator {
       }
       return value;
     } else {
+      console.log('get:' + get(this.data, path));
       return get(this.data, path);
     }
   }
 
   private findMembersFilter(key: string): boolean {
+    console.log(key);
     if (/validate([A-Z])\w+/g.test(key)) {
       return true;
     }
@@ -52,15 +54,17 @@ export class Validator {
 
   public async validate(ctx: Context, alias = {}) {
     this.alias = alias;
+    // 收集需要验证的参数
     let params = this.assembleAllParams(ctx);
 
     this.data = cloneDeep(params);
     this.parsed = cloneDeep(params);
 
+    // 注意这里的this关系
     const memberKeys = findMembers(this, {
       filter: this.findMembersFilter.bind(this),
     });
-
+    console.log(memberKeys);
     const errorMsgs = [];
     for (let key of memberKeys) {
       const result = await this.check(key, alias);

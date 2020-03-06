@@ -1,5 +1,7 @@
+import { Validator } from './validator';
+
 export const findMembers = (
-  instance: any,
+  instance: Validator,
   { prefix, specifiedType, filter }: { [x: string]: Function },
 ) => {
   // 递归函数

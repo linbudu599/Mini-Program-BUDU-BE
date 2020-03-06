@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   // 一行最多 100 字符
@@ -10,21 +10,19 @@ module.exports = {
   // 使用单引号
   singleQuote: true,
   // 对象的 key 仅在必要时用引号
-  quoteProps: "as-needed",
-  // jsx 不使用单引号，而使用双引号
-  jsxSingleQuote: false,
+  quoteProps: 'as-needed',
   // 末尾不需要逗号
-  trailingComma: "all",
+  trailingComma: 'all',
   // jsx 标签的反尖括号需要换行
   jsxBracketSameLine: false,
-  proseWrap: "never",
-  endOfLine: "lf",
+  proseWrap: 'never',
+  endOfLine: 'lf',
   overrides: [
     {
-      files: ".prettierrc",
+      files: '.prettierrc',
       options: {
-        parser: "json"
-      }
-    }
-  ]
+        parser: 'json',
+      },
+    },
+  ],
 };
