@@ -46,7 +46,7 @@
     "axios": "^0.19.2",
     "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "core-js": "^3.6.4",
     "corejs": "^1.0.0",
     "cross-env": "^7.0.0",
